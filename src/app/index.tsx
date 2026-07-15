@@ -1,4 +1,5 @@
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { useEffect, useState } from "react";
 import {
   FlatList,
   Image,
@@ -10,6 +11,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import cassetteProducts from "./data/cassette_products.json";
 
 const COLORS = {
   primary: "#2563EB",
@@ -21,35 +23,22 @@ const COLORS = {
   textSecondary: "#64748B",
 };
 
-const products = [
-  {
-    id: "1",
-    name: "เทปคาสเซ็ท อัลบั้ม ทีเล่นทีจริง",
-    artist: "อ.ดนู ฮันตระกูล",
-    price: 90,
-    image:
-      "https://inwfile.com/s-i/mysxl3.jpg",
-  },
-  {
-    id: "2",
-    name: "เทปคาสเซ็ท อัลบั้ม ทัชธันเดอร์",
-    artist: "ทัช ณ ตะกั่วทุ่ง",
-    price: 100,
-    image:
-      "https://th-test-11.slatic.net/p/b36c119f49496ae26a92f273b7e28002.jpg",
-  },
-  {
-    id: "3",
-    name: "เทปคาสเซ็ท อัลบั้ม รวมเพลงประกอบละคร ยามเมื่อลมพัดหวน",
-    artist: "รวมศิลปิน",
-    price: 150,
-    image:
-      "https://inwfile.com/s-i/foazas.jpg",
-  },
-];
+type Product = {
+  id: string;
+  name: string;
+  artist: string;
+  price: number;
+  image: string;
+};
 
 export default function HomeScreen() {
-  
+
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    setProducts(cassetteProducts as Product[]);
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar
@@ -289,39 +278,39 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: COLORS.textSecondary,
   },
-card: {
-  backgroundColor: "#fff",
-  borderRadius: 16,
-  padding: 14,
-  margin: 16,
-  borderWidth: 1,
-  borderColor: COLORS.border,
-},
+  card: {
+    backgroundColor: "#fff",
+    borderRadius: 16,
+    padding: 14,
+    margin: 16,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+  },
 
-image: {
-  width: "100%",
-  height: 180,
-  resizeMode: "contain",
-},
+  image: {
+    width: "100%",
+    height: 180,
+    resizeMode: "contain",
+  },
 
-name: {
-  marginTop: 10,
-  fontSize: 18,
-  fontWeight: "700",
-  color: COLORS.text,
-},
+  name: {
+    marginTop: 10,
+    fontSize: 18,
+    fontWeight: "700",
+    color: COLORS.text,
+  },
 
-brand: {
-  color: COLORS.textSecondary,
-  marginTop: 4,
-},
+  brand: {
+    color: COLORS.textSecondary,
+    marginTop: 4,
+  },
 
-price: {
-  marginTop: 8,
-  fontSize: 18,
-  fontWeight: "700",
-  color: COLORS.primary,
-},
+  price: {
+    marginTop: 8,
+    fontSize: 18,
+    fontWeight: "700",
+    color: COLORS.primary,
+  },
   bottomNav: {
     flexDirection: "row",
     backgroundColor: COLORS.background,
