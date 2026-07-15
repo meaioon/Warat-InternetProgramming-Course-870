@@ -1,98 +1,332 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { useEffect, useState } from "react";
+import {
+  FlatList,
+  Image,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import cassetteProducts from "./data/cassette_products.json";
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+const COLORS = {
+  primary: "#2563EB",
+  primaryDark: "#1D4ED8",
+  background: "#FFFFFF",
+  surface: "#F8FAFC",
+  border: "#E2E8F0",
+  text: "#0F172A",
+  textSecondary: "#64748B",
+};
 
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
-  return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+type Product = {
+  id: string;
+  name: string;
+  artist: string;
+  price: number;
+  image: string;
+};
 
 export default function HomeScreen() {
+
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    setProducts(cassetteProducts as Product[]);
+  }, []);
+
   return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
+    <SafeAreaView style={styles.container}>
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor={COLORS.background}
+      />
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
+      {/* Header */}
+      <View style={styles.header}>
+        <TouchableOpacity style={styles.iconButton}>
+          <Ionicons name="menu" size={24} color={COLORS.text} />
+        </TouchableOpacity>
 
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
+        <Text style={styles.headerTitle}>Products</Text>
+
+        <TouchableOpacity style={styles.profileButton}>
+          <Ionicons name="person" size={18} color="#fff" />
+        </TouchableOpacity>
+      </View>
+
+      {/* Search */}
+      <View style={styles.searchRow}>
+        <View style={styles.searchBox}>
+          <Ionicons
+            name="search"
+            size={18}
+            color={COLORS.textSecondary}
           />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
 
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+          <TextInput
+            placeholder="Search products..."
+            placeholderTextColor={COLORS.textSecondary}
+            style={styles.input}
+          />
+        </View>
+
+        <TouchableOpacity style={styles.addButton}>
+          <Text style={styles.addButtonText}>+ Add Product</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Filter */}
+      <View style={styles.filterRow}>
+        <TouchableOpacity style={styles.filterButton}>
+          <Text style={styles.filterText}>Filter ▼</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Product Area */}
+      <FlatList
+  data={products}
+  keyExtractor={(item) => item.id}
+  contentContainerStyle={{ padding: 16 }}
+  renderItem={({ item }) => (
+    <View style={styles.card}>
+      <Image
+        source={{ uri: item.image }}
+        style={styles.image}
+      />
+
+      <Text style={styles.name}>{item.name}</Text>
+
+      <Text style={styles.brand}>{item.artist}</Text>
+
+      <Text style={styles.price}>
+        ฿ {item.price.toLocaleString()}
+      </Text>
+    </View>
+  )}
+/>
+
+      {/* Bottom Navigation */}
+      <View style={styles.bottomNav}>
+        <TouchableOpacity style={styles.navItem}>
+          <Ionicons
+            name="home"
+            size={24}
+            color={COLORS.textSecondary}
+          />
+          <Text style={styles.navText}>Home</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.navItem}>
+          <Ionicons
+            name="add-circle"
+            size={30}
+            color={COLORS.primary}
+          />
+          <Text
+            style={[
+              styles.navText,
+              { color: COLORS.primary, fontWeight: "600" },
+            ]}
+          >
+            Add
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.navItem}>
+          <MaterialIcons
+            name="inventory-2"
+            size={24}
+            color={COLORS.primary}
+          />
+          <Text
+            style={[
+              styles.navText,
+              { color: COLORS.primary, fontWeight: "600" },
+            ]}
+          >
+            Products
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.navItem}>
+          <Ionicons
+            name="folder"
+            size={24}
+            color={COLORS.textSecondary}
+          />
+          <Text style={styles.navText}>Categories</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
+    backgroundColor: COLORS.background,
   },
-  safeArea: {
+
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 20,
+    paddingVertical: 18,
+    backgroundColor: COLORS.background,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+  },
+
+  headerTitle: {
+    fontSize: 24,
+    fontWeight: "700",
+    color: COLORS.primary,
+  },
+
+  iconButton: {
+    width: 36,
+    alignItems: "center",
+  },
+
+  profileButton: {
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    backgroundColor: COLORS.primary,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  searchRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 18,
+    paddingTop: 18,
+  },
+
+  searchBox: {
     flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: COLORS.surface,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    paddingHorizontal: 12,
+    height: 48,
   },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
+
+  input: {
     flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
+    marginLeft: 8,
+    color: COLORS.text,
   },
-  title: {
-    textAlign: 'center',
+
+  addButton: {
+    marginLeft: 12,
+    backgroundColor: COLORS.primary,
+    paddingHorizontal: 18,
+    height: 48,
+    borderRadius: 12,
+    justifyContent: "center",
+    elevation: 2,
   },
-  code: {
-    textTransform: 'uppercase',
+
+  addButtonText: {
+    color: "#fff",
+    fontWeight: "700",
   },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
+
+  filterRow: {
+    paddingHorizontal: 18,
+    paddingTop: 15,
+  },
+
+  filterButton: {
+    alignSelf: "flex-end",
+  },
+
+  filterText: {
+    color: COLORS.primary,
+    fontWeight: "600",
+    fontSize: 15,
+  },
+
+  content: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 25,
+  },
+
+  emptyTitle: {
+    marginTop: 20,
+    fontSize: 22,
+    fontWeight: "700",
+    color: COLORS.text,
+  },
+
+  emptySub: {
+    marginTop: 8,
+    fontSize: 15,
+    textAlign: "center",
+    color: COLORS.textSecondary,
+  },
+  card: {
+    backgroundColor: "#fff",
+    borderRadius: 16,
+    padding: 14,
+    margin: 16,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+  },
+
+  image: {
+    width: "100%",
+    height: 180,
+    resizeMode: "contain",
+  },
+
+  name: {
+    marginTop: 10,
+    fontSize: 18,
+    fontWeight: "700",
+    color: COLORS.text,
+  },
+
+  brand: {
+    color: COLORS.textSecondary,
+    marginTop: 4,
+  },
+
+  price: {
+    marginTop: 8,
+    fontSize: 18,
+    fontWeight: "700",
+    color: COLORS.primary,
+  },
+  bottomNav: {
+    flexDirection: "row",
+    backgroundColor: COLORS.background,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.border,
+    paddingVertical: 12,
+  },
+
+  navItem: {
+    flex: 1,
+    alignItems: "center",
+  },
+
+  navText: {
+    marginTop: 4,
+    fontSize: 12,
+    color: COLORS.textSecondary,
   },
 });
