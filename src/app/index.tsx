@@ -49,6 +49,7 @@ const products = [
 ];
 
 export default function HomeScreen() {
+  
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar
