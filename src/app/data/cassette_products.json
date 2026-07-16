@@ -3,42 +3,54 @@
     "id": "1",
     "name": "เทปคาสเซ็ท อัลบั้ม ทีเล่นทีจริง",
     "artist": "อ.ดนู ฮันตระกูล",
+    "category": "GMM Grammy",
     "price": 90,
+    "description": "เทปคาสเซ็ท",
     "image": "https://inwfile.com/s-i/mysxl3.jpg"
   },
   {
     "id": "2",
     "name": "เทปคาสเซ็ท อัลบั้ม ทัชธันเดอร์",
     "artist": "ทัช ณ ตะกั่วทุ่ง",
+    "category": "RS Promotion",
     "price": 100,
+    "description": "เทปคาสเซ็ท",
     "image": "https://th-test-11.slatic.net/p/b36c119f49496ae26a92f273b7e28002.jpg"
   },
   {
     "id": "3",
     "name": "เทปคาสเซ็ท อัลบั้ม รวมเพลงประกอบละคร ยามเมื่อลมพัดหวน",
     "artist": "รวมศิลปิน",
+    "category": "GMM Grammy",
     "price": 150,
+    "description": "เทปคาสเซ็ท",
     "image": "https://inwfile.com/s-i/foazas.jpg"
   },
   {
     "id": "4",
     "name": "เทปคาสเซ็ท อัลบั้ม TNT ธรรพ์ณธร",
     "artist": "อู๋ ธรรพ์ณธร ปาลกะวงศ์ ณ อยุธยา",
+    "category": "Other Record Label",
     "price": 100,
+    "description": "เทปคาสเซ็ท",
     "image": "https://down-th.img.susercontent.com/file/df08d668c922e91c84a95a70a4949a99"
   },
   {
     "id": "5",
     "name": "เทปคาสเซ็ท อัลบั้ม ไหน",
     "artist": "ลีโอ พุฒ",
+    "category": "GMM Grammy",
     "price": 80,
+    "description": "เทปคาสเซ็ท",
     "image": "https://s20011.lnwfile.com/_e/i/_raw/4c/82/bl.jpg"
   },
   {
     "id": "6",
-    "name": "เทปคาสเซ็ท อัลบั้ม เคน เฮอริเคน",
+    "name": "เทปคาสเซ็ท อัลบั้ม KEN HURRIKEN",
     "artist": "เคน เฮอริเคน",
+    "category": "GMM Grammy",
     "price": 60,
+    "description": "เทปคาสเซ็ท",
     "image": "https://down-th.img.susercontent.com/file/th-11134207-7r98o-lui7gxvnap1xbd"
   }
 ]

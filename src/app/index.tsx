@@ -1,5 +1,5 @@
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   FlatList,
@@ -28,17 +28,39 @@ type Product = {
   id: string;
   name: string;
   artist: string;
+  category: string;
   price: number;
+  description: string;
   image: string;
 };
 
 export default function HomeScreen() {
 
+  const { category } = useLocalSearchParams();
+  console.log("Selected Category:", category);
   const [products, setProducts] = useState<Product[]>([]);
+  const [search, setSearch] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   useEffect(() => {
     setProducts(cassetteProducts as Product[]);
   }, []);
+
+  const filteredProducts = products.filter((item) => {
+
+  const currentCategory =
+    (category as string) || selectedCategory;
+
+  const matchSearch =
+    item.name.toLowerCase().includes(search.toLowerCase()) ||
+    item.artist.toLowerCase().includes(search.toLowerCase());
+
+  const matchCategory =
+    currentCategory === "All" ||
+    item.category === currentCategory;
+
+  return matchSearch && matchCategory;
+});
 
   return (
     <SafeAreaView style={styles.container}>
@@ -53,7 +75,13 @@ export default function HomeScreen() {
           <Ionicons name="menu" size={24} color={COLORS.text} />
         </TouchableOpacity>
 
-        <Text style={styles.headerTitle}>Products</Text>
+        <Text style={styles.headerTitle}>
+          Product
+        </Text>
+
+        <Text style={styles.subtitle}>
+          It's Second Hand!
+        </Text>
 
         <TouchableOpacity style={styles.profileButton}>
           <Ionicons name="person" size={18} color="#fff" />
@@ -73,6 +101,8 @@ export default function HomeScreen() {
             placeholder="Search products..."
             placeholderTextColor={COLORS.textSecondary}
             style={styles.input}
+            value={search}
+            onChangeText={setSearch}
           />
         </View>
 
@@ -93,9 +123,12 @@ export default function HomeScreen() {
 
       {/* Product Area */}
       <FlatList
-  data={products}
+  data={filteredProducts}
   keyExtractor={(item) => item.id}
-  contentContainerStyle={{ padding: 16 }}
+  contentContainerStyle={{
+    padding: 16,
+    paddingBottom: 100,
+  }}
   renderItem={({ item }) => (
     <TouchableOpacity
       style={styles.card}
@@ -106,7 +139,9 @@ export default function HomeScreen() {
             id: item.id,
             name: item.name,
             artist: item.artist,
+            category: item.category,
             price: item.price.toString(),
+            description: item.description,
             image: item.image,
           },
         })
@@ -126,6 +161,23 @@ export default function HomeScreen() {
       </Text>
       </TouchableOpacity>
   )}
+  ListEmptyComponent={
+  <View style={styles.emptyContainer}>
+    <Ionicons
+      name="search"
+      size={60}
+      color="#999"
+    />
+
+    <Text style={styles.noResultTitle}>
+      No products found
+    </Text>
+
+    <Text style={styles.emptyText}>
+      Try another keyword.
+    </Text>
+  </View>
+}
 />
 
       {/* Bottom Navigation */}
@@ -145,7 +197,7 @@ export default function HomeScreen() {
         >
           <Ionicons
             name="add-circle"
-            size={30}
+            size={24}
             color={COLORS.primary}
           />
           <Text
@@ -181,9 +233,16 @@ export default function HomeScreen() {
           <Ionicons
             name="folder"
             size={24}
-            color={COLORS.textSecondary}
+            color={COLORS.primary}
           />
-          <Text style={styles.navText}>Categories</Text>
+          <Text
+            style={[
+              styles.navText,
+              { color: COLORS.primary, fontWeight: "600" },
+            ]}
+          >
+            Categories
+          </Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -211,6 +270,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "700",
     color: COLORS.primary,
+  },
+
+  subtitle: {
+    color: COLORS.textSecondary,
+    fontSize: 14,
+    marginTop: 4,
   },
 
   iconButton: {
@@ -302,39 +367,52 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: COLORS.textSecondary,
   },
+
   card: {
     backgroundColor: "#fff",
     borderRadius: 16,
     padding: 14,
-    margin: 16,
+    marginBottom: 16,
     borderWidth: 1,
     borderColor: COLORS.border,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 5,
+    elevation: 3,
   },
 
   image: {
     width: "100%",
-    height: 180,
+    height: 200,
     resizeMode: "contain",
+    borderRadius: 10,
+    backgroundColor: "#F8FAFC",
   },
 
   name: {
-    marginTop: 10,
+    marginTop: 12,
     fontSize: 18,
     fontWeight: "700",
     color: COLORS.text,
   },
 
   brand: {
+    marginTop: 6,
+    fontSize: 15,
     color: COLORS.textSecondary,
-    marginTop: 4,
   },
 
   price: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: "700",
+    marginTop: 12,
+    fontSize: 22,
+    fontWeight: "bold",
     color: COLORS.primary,
   },
+
   bottomNav: {
     flexDirection: "row",
     backgroundColor: COLORS.background,
@@ -346,11 +424,32 @@ const styles = StyleSheet.create({
   navItem: {
     flex: 1,
     alignItems: "center",
+    justifyContent: "center",
   },
 
   navText: {
     marginTop: 4,
     fontSize: 12,
+    lineHeight: 14,
+    fontWeight: "500",
     color: COLORS.textSecondary,
+  },
+
+  emptyContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 80,
+  },
+
+  noResultTitle: {
+    marginTop: 20,
+    fontSize: 22,
+    fontWeight: "bold",
+  },
+
+  emptyText: {
+    marginTop: 10,
+    color: "#666",
+    fontSize: 16,
   },
 });

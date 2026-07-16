@@ -1,14 +1,15 @@
+import { router } from "expo-router";
 import {
-    SafeAreaView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
   
   const categories = [
     "GMM Grammy",
-    "RS",
+    "RS Promotion",
     "Nititad",
     "KITA",
     "Bakery Music",
@@ -18,7 +19,8 @@ import {
     "Sony Music",
     "Warner Music",
     "EMI Thailand",
-    "All",
+    "Other Record Label",
+    "All"
   ];
   
   export default function CategoriesScreen() {
@@ -34,6 +36,14 @@ import {
           <TouchableOpacity
             key={item}
             style={styles.card}
+            onPress={() =>
+              router.push({
+                pathname: "/",
+                params: {
+                  category: item,
+                },
+              })
+            }
           >
             <Text style={styles.cardText}>
               {item}
