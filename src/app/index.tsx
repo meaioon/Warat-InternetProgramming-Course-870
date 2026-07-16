@@ -1,4 +1,5 @@
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   FlatList,
@@ -93,7 +94,21 @@ export default function HomeScreen() {
   keyExtractor={(item) => item.id}
   contentContainerStyle={{ padding: 16 }}
   renderItem={({ item }) => (
-    <View style={styles.card}>
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() =>
+        router.push({
+          pathname: "/detail",
+          params: {
+            id: item.id,
+            name: item.name,
+            artist: item.artist,
+            price: item.price.toString(),
+            image: item.image,
+          },
+        })
+      }
+    >
       <Image
         source={{ uri: item.image }}
         style={styles.image}
@@ -106,7 +121,7 @@ export default function HomeScreen() {
       <Text style={styles.price}>
         ฿ {item.price.toLocaleString()}
       </Text>
-    </View>
+      </TouchableOpacity>
   )}
 />
 
