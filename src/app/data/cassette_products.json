@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1",
+    "name": "เทปคาสเซ็ท อัลบั้ม ทีเล่นทีจริง",
+    "artist": "อ.ดนู ฮันตระกูล",
+    "price": 90,
+    "image": "https://inwfile.com/s-i/mysxl3.jpg"
+  },
+  {
+    "id": "2",
+    "name": "เทปคาสเซ็ท อัลบั้ม ทัชธันเดอร์",
+    "artist": "ทัช ณ ตะกั่วทุ่ง",
+    "price": 100,
+    "image": "https://th-test-11.slatic.net/p/b36c119f49496ae26a92f273b7e28002.jpg"
+  },
+  {
+    "id": "3",
+    "name": "เทปคาสเซ็ท อัลบั้ม รวมเพลงประกอบละคร ยามเมื่อลมพัดหวน",
+    "artist": "รวมศิลปิน",
+    "price": 150,
+    "image": "https://inwfile.com/s-i/foazas.jpg"
+  }
+]
