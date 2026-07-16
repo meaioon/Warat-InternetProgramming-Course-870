@@ -76,7 +76,10 @@ export default function HomeScreen() {
           />
         </View>
 
-        <TouchableOpacity style={styles.addButton}>
+        <TouchableOpacity
+          style={styles.addButton}
+          onPress={() => router.push("/add")}
+        >
           <Text style={styles.addButtonText}>+ Add Product</Text>
         </TouchableOpacity>
       </View>
@@ -136,7 +139,10 @@ export default function HomeScreen() {
           <Text style={styles.navText}>Home</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.navItem}>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => router.push("/add")}
+        >
           <Ionicons
             name="add-circle"
             size={30}
@@ -168,7 +174,10 @@ export default function HomeScreen() {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.navItem}>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => router.push("/categories")}
+        >
           <Ionicons
             name="folder"
             size={24}
