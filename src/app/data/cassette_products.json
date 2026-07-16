@@ -19,5 +19,26 @@
     "artist": "รวมศิลปิน",
     "price": 150,
     "image": "https://inwfile.com/s-i/foazas.jpg"
+  },
+  {
+    "id": "4",
+    "name": "เทปคาสเซ็ท อัลบั้ม TNT ธรรพ์ณธร",
+    "artist": "อู๋ ธรรพ์ณธร ปาลกะวงศ์ ณ อยุธยา",
+    "price": 100,
+    "image": "https://down-th.img.susercontent.com/file/df08d668c922e91c84a95a70a4949a99"
+  },
+  {
+    "id": "5",
+    "name": "เทปคาสเซ็ท อัลบั้ม ไหน",
+    "artist": "ลีโอ พุฒ",
+    "price": 80,
+    "image": "https://s20011.lnwfile.com/_e/i/_raw/4c/82/bl.jpg"
+  },
+  {
+    "id": "6",
+    "name": "เทปคาสเซ็ท อัลบั้ม เคน เฮอริเคน",
+    "artist": "เคน เฮอริเคน",
+    "price": 60,
+    "image": "https://down-th.img.susercontent.com/file/th-11134207-7r98o-lui7gxvnap1xbd"
   }
 ]
