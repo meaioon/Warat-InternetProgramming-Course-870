@@ -69,7 +69,21 @@ export default function DetailScreen() {
 
       <View style={styles.infoCard}>
         <Text style={styles.name}>{name}</Text>
-        <Text style={styles.artist}>{artist}</Text>
+      <View style={styles.sectionHeader}>
+          <Ionicons
+              name="person"
+              size={18}
+              color="#2563EB"
+          />
+          <Text style={styles.label}>
+              Artist
+          </Text>
+      </View>
+
+      <Text style={styles.value}>
+          {artist}
+      </Text>
+      <View style={styles.divider} />
         <Text style={styles.label}>
           Price
         </Text>
@@ -77,7 +91,8 @@ export default function DetailScreen() {
         <Text style={styles.price}>
           ฿ {price}
         </Text>
-        <View style={styles.sectionHeader}>
+        <View style={styles.divider} />
+        <View style={styles.sectionSecondary}>
           <Ionicons
             name="pricetag"
             size={18}
@@ -87,10 +102,13 @@ export default function DetailScreen() {
             Category
           </Text>
         </View>
-        <Text style={styles.value}>
-          {category}
-        </Text>
-        <View style={styles.sectionHeader}>
+        <View style={styles.categoryBadge}>
+            <Text style={styles.categoryBadgeText}>
+                {category}
+            </Text>
+        </View>
+        <View style={styles.divider} />
+        <View style={styles.sectionSecondary}>
           <Ionicons
             name="document-text"
             size={18}
@@ -105,7 +123,7 @@ export default function DetailScreen() {
         </Text>
         <TouchableOpacity style={styles.buyButton}>
           <Ionicons name="cart" size={20} color="#fff" />
-          <Text style={styles.buyText}> Buy </Text>
+          <Text style={styles.buyText}> Add to Cart </Text>
 </TouchableOpacity>
       </View>
       </ScrollView>
@@ -165,6 +183,7 @@ const styles = StyleSheet.create({
 
     imageCard:{
       margin:20,
+      marginBottom: 15,
       backgroundColor:"#fff",
       borderRadius:20,
       padding:20,
@@ -193,12 +212,32 @@ const styles = StyleSheet.create({
       fontSize: 24,
       fontWeight: "bold",
       marginBottom: 10,
+      color:"#2563EB",
     },
 
     artist: {
       fontSize: 18,
       color: "#666",
      marginBottom: 12,
+    },
+
+    sectionSecondary: {
+      flexDirection: "row",
+      alignItems: "center",
+    },
+
+    categoryBadge: {
+      alignSelf: "flex-start",
+      marginTop: 8,
+      backgroundColor: "#DBEAFE",
+      paddingHorizontal: 14,
+      paddingVertical: 8,
+      borderRadius: 20,
+    },
+
+    categoryBadgeText: {
+      color: "#2563EB",
+      fontWeight: "700",
     },
 
     price: {
@@ -242,5 +281,11 @@ const styles = StyleSheet.create({
       color: "#fff",
       fontSize: 18,
       fontWeight: "700",
+    },
+
+    divider: {
+      height: 1,
+      backgroundColor: "#E5E7EB",
+      marginVertical: 18,
     },
 });

@@ -82,7 +82,7 @@ export default function HomeScreen() {
         </TouchableOpacity>
 
         <Text style={styles.headerTitle}>
-          Product
+          MarketPlace
         </Text>
 
         <Text style={styles.subtitle}>
@@ -174,11 +174,11 @@ export default function HomeScreen() {
 
           <TouchableOpacity
             onPress={() => {
-              setSelectedCategory("KITA Music");
+              setSelectedCategory("KITA Records");
               setShowFilter(false);
             }}
           >
-            <Text style={styles.filterItem}>KITA Music</Text>
+            <Text style={styles.filterItem}>KITA Records</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
